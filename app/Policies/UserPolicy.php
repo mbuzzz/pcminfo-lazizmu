@@ -1,0 +1,80 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Policies;
+
+use App\Models\User;
+
+class UserPolicy
+{
+    public function viewAny(User $user): bool
+    {
+        return $user->can('manage_users') || $user->can('view_any_users');
+    }
+
+    public function view(User $user, User $model): bool
+    {
+        return $this->viewAny($user);
+    }
+
+    public function create(User $user): bool
+    {
+        return $user->can('manage_users') || $user->can('create_users');
+    }
+
+    public function update(User $user, User $model): bool
+    {
+        if (! ($user->can('manage_users') || $user->can('update_users'))) {
+            return false;
+        }
+
+        if ($model->isCoreAdministrator() && ! $user->isCoreAdministrator()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public function delete(User $user, User $model): bool
+    {
+        if (! ($user->can('manage_users') || $user->can('delete_users'))) {
+            return false;
+        }
+
+        if ($user->is($model)) {
+            return false;
+        }
+
+        if ($model->isCoreAdministrator()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public function restore(User $user, User $model): bool
+    {
+        return $user->can('manage_users') || $user->can('restore_users');
+    }
+
+    public function forceDelete(User $user, User $model): bool
+    {
+        return $user->isCoreAdministrator();
+    }
+
+    public function deleteAny(User $user): bool
+    {
+        return $user->can('manage_users') || $user->can('delete_users');
+    }
+
+    public function forceDeleteAny(User $user): bool
+    {
+        return $user->isCoreAdministrator();
+    }
+
+    public function restoreAny(User $user): bool
+    {
+        return $user->can('manage_users') || $user->can('restore_users');
+    }
+}
