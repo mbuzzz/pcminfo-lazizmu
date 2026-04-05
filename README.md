@@ -189,14 +189,12 @@ cd pcm-portal
 
 # Install dependencies
 composer install --no-dev --optimize-autoloader
-npm install && npm run build
 ```
 
 **Opsi B — Via File Manager / FTP**
 1. Di komputer lokal, jalankan:
    ```bash
    composer install --no-dev --optimize-autoloader
-   npm install && npm run build
    ```
 2. Compress seluruh project menjadi `.zip` (**kecuali** `node_modules/` dan `.git/`)
 3. Upload ke `/home/username/` via File Manager
@@ -360,10 +358,6 @@ composer install --no-dev --optimize-autoloader
 
 # Jalankan migrasi baru (jika ada)
 php artisan migrate --force
-
-# Rebuild frontend assets
-npm install && npm run build
-cp -r public/build /home/username/public_html/build
 
 # Clear & rebuild cache
 php artisan optimize:clear
