@@ -15,20 +15,16 @@ final class WebManifestController extends Controller
         $identity = $siteSettings->identity();
         $theme = $siteSettings->theme();
 
-        $icons = collect([
-            $identity['favicon_url'],
-            $identity['logo_url'],
-        ])
-            ->filter()
-            ->unique()
-            ->values()
-            ->map(static fn (string $src): array => [
-                'src' => $src,
-                'sizes' => '192x192',
-                'type' => 'image/png',
-                'purpose' => 'any',
-            ])
-            ->all();
+        $icons = [
+            ['src' => '/icons/icon-72x72.png', 'sizes' => '72x72', 'type' => 'image/png', 'purpose' => 'any maskable'],
+            ['src' => '/icons/icon-96x96.png', 'sizes' => '96x96', 'type' => 'image/png', 'purpose' => 'any maskable'],
+            ['src' => '/icons/icon-128x128.png', 'sizes' => '128x128', 'type' => 'image/png', 'purpose' => 'any maskable'],
+            ['src' => '/icons/icon-144x144.png', 'sizes' => '144x144', 'type' => 'image/png', 'purpose' => 'any maskable'],
+            ['src' => '/icons/icon-152x152.png', 'sizes' => '152x152', 'type' => 'image/png', 'purpose' => 'any maskable'],
+            ['src' => '/icons/icon-192x192.png', 'sizes' => '192x192', 'type' => 'image/png', 'purpose' => 'any maskable'],
+            ['src' => '/icons/icon-384x384.png', 'sizes' => '384x384', 'type' => 'image/png', 'purpose' => 'any maskable'],
+            ['src' => '/icons/icon-512x512.png', 'sizes' => '512x512', 'type' => 'image/png', 'purpose' => 'any maskable'],
+        ];
 
         return response()->make(json_encode([
             'name' => $identity['name'],

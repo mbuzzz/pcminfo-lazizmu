@@ -4,7 +4,6 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ $pageTitle ?? $siteSettings->siteName() }}</title>
 
@@ -17,6 +16,7 @@
         @if ($siteSettings->faviconUrl())
             <link rel="icon" href="{{ $siteSettings->faviconUrl() }}">
         @endif
+        <link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192x192.png">
 
         <link rel="manifest" href="{{ route('pwa.manifest') }}">
         <meta name="theme-color" content="{{ $siteSettings->theme()['primary_color'] }}">
