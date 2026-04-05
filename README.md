@@ -180,7 +180,7 @@ Pada shared hosting, `public_html` adalah webroot. Kita **tidak boleh** menaruh 
 **Opsi A — Via SSH (Direkomendasikan)**
 ```bash
 # SSH ke server
-ssh username@yourdomain.com
+ssh username@pcmgenteng.or.id
 
 # Clone langsung di server
 cd /home/username
@@ -250,7 +250,7 @@ APP_NAME="PCM Genteng Portal"
 APP_ENV=production
 APP_KEY=              # akan di-generate di step berikutnya
 APP_DEBUG=false
-APP_URL=https://yourdomain.com
+APP_URL=https://pcmgenteng.or.id
 
 LOG_CHANNEL=single
 
@@ -289,6 +289,12 @@ php artisan route:cache
 php artisan view:cache
 php artisan icons:cache
 php artisan filament:cache-components
+
+# Buat User Admin Baru
+php artisan make:filament-user
+
+# Beri akses Super Admin ke user yang baru dibuat
+php artisan tinker --execute="App\Models\User::latest()->first()->assignRole('super_admin');"
 
 # Set permission folder
 chmod -R 775 storage bootstrap/cache
